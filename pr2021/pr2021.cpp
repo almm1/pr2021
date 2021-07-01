@@ -7,6 +7,8 @@
 #include "Processor.h"
 #include <stack> 
 
+#define separator "+--------------------------------------+\n"
+
 Processor P1; //Процессор P1
 Processor P2; // P2
 Processor P3; // P3
@@ -25,10 +27,12 @@ int shet(int x) { //функция счета цифр в числе
 }
 
 void print_stack() { //отображение стека
-	std::cout << "+-";
-	for (std::stack<Task> temp = steck; !temp.empty(); temp.pop())
-		std::cout << ' ' << temp.top().pid;
-	std::cout << " -+\n";
+	if (steck.empty() == false) {
+		std::cout << "+-";
+		for (std::stack<Task> temp = steck; !temp.empty(); temp.pop())
+			std::cout << ' ' << temp.top().pid << "(" << temp.top().type << ")";
+	}
+	else std::cout << separator;
 }
 
 void print_done() { //отображение выполненных задач
@@ -36,42 +40,42 @@ void print_done() { //отображение выполненных задач
 		std::cout << "+-";
 		for (std::stack<int> temp = done; !temp.empty(); temp.pop())
 			std::cout << ' ' << temp.top();
-		std::cout << " -+\n";
 	}
+	else std::cout << separator;
 }
 
 void print_task(int t, int type) { //отображение задачи выбранного процессора(3 варианта, зависит от количетсва цифр в числе)
 	if (shet(t)==1)
-		std::cout << "+-- Процессор P"<< type <<": " << t << " ----+\n";
+		std::cout << "+---- Процессор P"<< type <<": " << t << " -----+\n";
 	else if (shet(t)==2)
-		std::cout << "+-- Процессор P"<< type <<": " << t << " ---+\n";
+		std::cout << "+---- Процессор P"<< type <<": " << t << " ----+\n";
 	else if (shet(t)==3)
-		std::cout << "+-- Процессор P"<< type <<": " << t << " --+\n";
+		std::cout << "+---- Процессор P"<< type <<": " << t << " ---+\n";
 }
 
 void print_work_time() {
 	if (shet(work_time) == 1)
-		std::cout << "+---------- " << work_time << " ----------+\n";
+		std::cout << "+------------ " << work_time << " -----------+\n";
 	else if (shet(work_time) == 2)
-		std::cout << "+---------- " << work_time << " ---------+\n";
+		std::cout << "+------------ " << work_time << " ----------+\n";
 	else if (shet(work_time) == 3)
-		std::cout << "+--------- " << work_time << " ---------+\n";
+		std::cout << "+------------ " << work_time << " ---------+\n";
 }
 	
 
 void print() { //функция отображения симуляции
 	print_work_time();
-	std::cout << "+-----------------------+\n";
+	std::cout << separator;
 	print_task(P1.T, 1);
 	print_task(P2.T, 2);
 	print_task(P3.T, 3);
-	std::cout << "+-----------------------+\n";
-	std::cout << "+-------- Стек: --------+\n";
+	std::cout << separator;
+	std::cout << "+--------- Стек: ----------+\n";
 	print_stack();
-	std::cout << "+-----------------------+\n";
-	std::cout << "+------ Выполнено: -----+\n";
+	std::cout << separator;
+	std::cout << "+------- Выполнено: -------+\n";
 	print_done();
-	std::cout << "+-----------------------+\n";
+	std::cout << separator;
 }
 
 Task pop()//эмулятор очереди, который является генератором задач

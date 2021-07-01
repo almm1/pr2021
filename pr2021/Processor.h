@@ -3,8 +3,7 @@ class Processor
 {
 public:
 	bool isReady;
-	int T;
-	int time;
-	Processor(bool isReady, int T, int time);
+	Task *task;
+	Processor(int type, bool isReady, int T, int time);
 	Processor() {};
 };

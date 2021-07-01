@@ -1,11 +1,10 @@
 #include "pch.h"
 #include "Processor.h"
+#include "Task.h"
 
-
-Processor::Processor(bool isReady, int T, int time)
-{
+Processor::Processor(int type ,bool isReady, int T, int time) {
 	this->isReady = isReady;
-	this->T = T;
-	this->time = time;
+	this->task->pid = T;
+	this->task->delay = time;
+	this->task->type = type;
 }
-

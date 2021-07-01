@@ -2,7 +2,7 @@
 class Task
 {
 public:
-	Task();
+	Task() {};
 	Task(int pid, int type, int delay);
 	int pid;
 	int type;

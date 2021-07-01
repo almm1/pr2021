@@ -7,7 +7,7 @@
 #include "Processor.h"
 #include <stack> 
 
-#define separator "+--------------------------------------+\n"
+#define separator "+------------------------------------------+\n"
 
 Processor P1; //Процессор P1
 Processor P2; // P2
@@ -27,9 +27,11 @@ int shet(int x) { //функция счета цифр в числе
 }
 
 void print_dynamic(std::stack<Task> st) { //отображение выполненных задач
+	int c = 0;
 	if (st.empty() == false) {
 		std::cout << "+-";
-		for (std::stack<Task> temp = st; !temp.empty(); temp.pop()) {
+		for (std::stack<Task> temp = st; !temp.empty(); temp.pop(), c++) {
+			if (c == 5) break;
 			if (shet(temp.top().pid)==1)
 				std::cout << " 00" << temp.top().pid << "(" << temp.top().type << ")";
 			else if (shet(temp.top().pid)==2)
@@ -37,26 +39,32 @@ void print_dynamic(std::stack<Task> st) { //отображение выполн�
 			else if (shet(temp.top().pid)==3)
 				std::cout << " " << temp.top().pid << "(" << temp.top().type << ")";
 		}
+		if (st.size() == 1) std::cout << " ---------------------------------+\n";
+		else if (st.size() == 2) std::cout << " --------------------------+\n";
+		else if (st.size() == 3) std::cout << " -------------------+\n";
+		else if (st.size() == 4) std::cout << " ------------+\n";
+		else if (st.size() == 5) std::cout << " -----+\n";
+		else std::cout << " ... -+\n";
 	}
 	else std::cout << separator;
 }
 
 void print_task(int t, int type) { //отображение задачи выбранного процессора(3 варианта, зависит от количетсва цифр в числе)
 	if (shet(t)==1)
-		std::cout << "+--------- Процессор P"<< type <<": 00" << t << " ----------+\n";
+		std::cout << "+----------- Процессор P"<< type <<": 00" << t << " ------------+\n";
 	else if (shet(t)==2)
-		std::cout << "+--------- Процессор P"<< type <<": 0" << t << " ----------+\n";
+		std::cout << "+----------- Процессор P"<< type <<": 0" << t << " ------------+\n";
 	else if (shet(t)==3)
-		std::cout << "+--------- Процессор P"<< type <<": " << t << " ----------+\n";
+		std::cout << "+----------- Процессор P"<< type <<": " << t << " ------------+\n";
 }
 
 void print_work_time() {
 	if (shet(work_time) == 1)
-		std::cout << "+------------------ " << work_time << " -----------------+\n";
+		std::cout << "+-------------------- " << work_time << " -------------------+\n";
 	else if (shet(work_time) == 2)
-		std::cout << "+------------------ " << work_time << " ----------------+\n";
+		std::cout << "+-------------------- " << work_time << " ------------------+\n";
 	else if (shet(work_time) == 3)
-		std::cout << "+------------------ " << work_time << " ---------------+\n";
+		std::cout << "+-------------------- " << work_time << " -----------------+\n";
 }
 	
 void print() { //функция отображения симуляции
@@ -66,10 +74,10 @@ void print() { //функция отображения симуляции
 	print_task(P2.task.pid, 2);
 	print_task(P3.task.pid, 3);
 	std::cout << separator;
-	std::cout << "+-------------- Стек: ---------------+\n";
+	std::cout << "+------------------ Стек: -----------------+\n";
 	print_dynamic(steck);
 	std::cout << separator;
-	std::cout << "+------------ Выполнено: ------------+\n";
+	std::cout << "+---------------- Выполнено: --------------+\n";
 	print_dynamic(done);
 	std::cout << separator;
 }
